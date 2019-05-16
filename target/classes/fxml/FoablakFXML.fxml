@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="szamlak.FoablakController">
+    <center>
+        <TextArea fx:id="szamlaReszletek" prefWidth="400.0" BorderPane.alignment="CENTER" />
+    </center>
+    <top>
+        <VBox fx:id="felsoBox" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar prefWidth="800.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem fx:id="menuKilepo" mnemonicParsing="false" onAction="#menuKilepes" text="Kilepes" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </VBox>
+    </top>
+    <left>
+        <ListView fx:id="szamlaLista" onMouseClicked="#listaKlikk" prefHeight="360.0" prefWidth="150.0" BorderPane.alignment="CENTER" />
+    </left>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="29.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button onAction="#megnyitAdatAblak" text="Új adat" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="50.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button onAction="#torlesBiztos" text="Törlés" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="80.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+
+                <Button fx:id="kilepo" alignment="CENTER_RIGHT" onAction="#menuKilepes" text="Kilépés">
+                    <HBox.margin>
+                        <Insets bottom="5.0" right="20.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

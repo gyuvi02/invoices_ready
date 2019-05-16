@@ -1,2 +1,2 @@
 # szamlak_kesz
-Rezsi nyilvantarto program
+Rezsi szamlak kezelese
