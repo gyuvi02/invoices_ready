@@ -66,6 +66,9 @@ public class FoablakController {
 
     public void torlesBiztos() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Teljesen biztos");
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Nem");
+
         alert.setTitle("Törlés megerősítése");
         alert.setHeaderText("Biztos, hogy törölni akarja ezeket az adatokat?");
         alert.setContentText("Biztos?");
