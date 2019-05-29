@@ -119,6 +119,8 @@ public class AdatAblakController {
         }
         if (intAktualisGaz < utolso.getAktualisGazOraallas()) {
             errorDialog();
+        } else if (intAktualisVillany < utolso.getAktualisVillanyOraallas()) {
+            errorDialog();
         }else {
             Oraallas ujOraallas = new Oraallas(valasztottEv, valasztottHonap, utolso.getAktualisGazOraallas() , intAktualisGaz,
                     doubleGazEgysegar, utolso.getAktualisVillanyOraallas(), intAktualisVillany, doubleVillanyegysegar,
