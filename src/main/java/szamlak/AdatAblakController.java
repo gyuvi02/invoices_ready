@@ -2,15 +2,11 @@ package szamlak;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import szamlak.adatok.AdatKezelo;
 import szamlak.adatok.Oraallas;
 
@@ -65,15 +61,9 @@ public class AdatAblakController {
         lakber.setText(Integer.toString(intLakber));
     }
 
-
     public void visszaFoablakra(ActionEvent event) throws Exception {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/FoablakFXML.fxml"));
-            Parent foablakParent = loader.load();
-            Scene foablakScene = new Scene(foablakParent, 600, 500);
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-            window.setScene(foablakScene);
-            window.setTitle("Számla nyilvántartó");
+        Main.ablakBeallito("FoablakFXML");
+        Main.getStage().setTitle("Számla nyilvántartó"); // vissza kell allitani az eredeti ablak cimet
     }
 
     public void evBeiras() {

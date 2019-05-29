@@ -42,10 +42,10 @@ public class Oraallas {
         StringBuilder sb = new StringBuilder();
         sb.append("Gáz: \nFogyasztás a megelőző hónap óta: " + gazFogyasztas + " köbméter");
         sb.append("\nA gázszámla ebben az időszakban: " + df.format(gazHavi) + " Ft");
-        sb.append("\nA gázóvillanyraállás: " + df.format(elem.getAktualisGazOraallas()) );
+        sb.append("\nA gázóraállás az időszak végén: " + df.format(elem.getAktualisGazOraallas()) );
         sb.append("\n\nVillany: \nFogyasztás a megelőző hónap óta: " + villanyFogyasztas + " kW");
         sb.append("\nA villanyszámla ebben az időszakban: " + df.format(villanyHavi) + " Ft");
-        sb.append("\nA villanyóraállás: " + df.format(elem.aktualisVillanyOraallas) );
+        sb.append("\nA villanyóraállás az időszak végén: " + df.format(elem.aktualisVillanyOraallas) );
         sb.append("\n\nKözös költség: " + df.format(elem.getKozosKoltseg()) + " Ft");
         sb.append("\n\nAlbérleti díj: " + df.format(elem.getLakber()) + " Ft");
         sb.append("\n\nÖsszes fizetendő: " + df.format(gazHavi + villanyHavi + elem.getKozosKoltseg() + elem.getLakber()) + " Ft");
