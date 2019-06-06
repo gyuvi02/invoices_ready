@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OraallasTest {
     Oraallas tesztOraallas = new Oraallas(2018, 12, 99, 199,
-            100.0, 200, 299, 200.0,
+            100.0, 1200,200, 299, 200.0,
             10000, 20000);
 
 

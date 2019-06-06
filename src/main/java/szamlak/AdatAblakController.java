@@ -17,10 +17,11 @@ public class AdatAblakController {
 
     private int valasztottEv;
     private int valasztottHonap;
-    private int intAktualisGaz = utolso.getAktualisGazOraallas();
-    private int intAktualisVillany = utolso.getAktualisVillanyOraallas();
+    private double doubleAktualisGaz = utolso.getAktualisGazOraallas();
+    private double doubleAktualisVillany = utolso.getAktualisVillanyOraallas();
     private double doubleGazEgysegar = utolso.getEgysegarGaz();
     private double doubleVillanyegysegar = utolso.getEgysegarVillany();
+    private int intGazAlapdij = utolso.getGazAlapdij();
     private int intKozosKoltseg = utolso.getKozosKoltseg();
     private int intLakber = utolso.getLakber();
 
@@ -37,10 +38,16 @@ public class AdatAblakController {
     private ComboBox<String> honapValaszto;
 
     @FXML
+    private ComboBox<String> csereLegordulo;
+
+    @FXML
     private TextField aktualisGaz;
 
     @FXML
     private TextField gazEgysegar;
+
+    @FXML
+    private TextField gazAlapDij;
 
     @FXML
     private TextField aktualisVillany;
@@ -57,13 +64,23 @@ public class AdatAblakController {
     public void initialize() {
         gazEgysegar.setText(Double.toString(doubleGazEgysegar));
         villanyEgysegar.setText(Double.toString(doubleVillanyegysegar));
+        gazAlapDij.setText(Integer.toString(intGazAlapdij));
         kozosKoltseg.setText(Integer.toString(intKozosKoltseg));
         lakber.setText(Integer.toString(intLakber));
+        csereLegordulo.getSelectionModel().selectFirst();
     }
 
     public void visszaFoablakra(ActionEvent event) throws Exception {
         Main.ablakBeallito("FoablakFXML");
         Main.getStage().setTitle("Számla nyilvántartó"); // vissza kell allitani az eredeti ablak cimet
+    }
+
+    public void oraCsere() throws Exception {
+        Main.ablakBeallito("OraCsereloFXML");
+        Main.getStage().setTitle("Óracsere rögzítése");
+    }
+
+    public void vanCsere (ActionEvent event) {
     }
 
     public void evBeiras() {
@@ -99,24 +116,29 @@ public class AdatAblakController {
         } else if (aktualisVillany.getText().isEmpty()) {
             errorDialog();
             return;
-        }else {
-            intAktualisGaz = Integer.parseInt(aktualisGaz.getText());
+        }
+        else {
+            doubleAktualisGaz = Double.parseDouble(aktualisGaz.getText());
             doubleGazEgysegar = Double.parseDouble(gazEgysegar.getText());
-            intAktualisVillany = Integer.parseInt(aktualisVillany.getText());
+            intGazAlapdij = Integer.parseInt(gazAlapDij.getText());
+            doubleGazEgysegar = Double.parseDouble(gazEgysegar.getText());
+            doubleAktualisVillany = Double.parseDouble(aktualisVillany.getText());
             doubleVillanyegysegar = Double.parseDouble(villanyEgysegar.getText());
             intKozosKoltseg = Integer.parseInt(kozosKoltseg.getText());
             intLakber = Integer.parseInt(lakber.getText());
         }
-        if (intAktualisGaz < utolso.getAktualisGazOraallas()) {
+        if (doubleAktualisGaz < utolso.getAktualisGazOraallas()) {
             errorDialog();
-        } else if (intAktualisVillany < utolso.getAktualisVillanyOraallas()) {
+        }else if (doubleAktualisVillany < utolso.getAktualisVillanyOraallas()) {
             errorDialog();
-        }else {
-            Oraallas ujOraallas = new Oraallas(valasztottEv, valasztottHonap, utolso.getAktualisGazOraallas() , intAktualisGaz,
-                    doubleGazEgysegar, utolso.getAktualisVillanyOraallas(), intAktualisVillany, doubleVillanyegysegar,
-                    intKozosKoltseg, intLakber );
+        } else if (csereLegordulo.getValue().equals("Igen")) {
+            oraCsere();
+        } else {
+            Oraallas ujOraallas = new Oraallas(valasztottEv, valasztottHonap, utolso.getAktualisGazOraallas(), doubleAktualisGaz,
+                    doubleGazEgysegar, intGazAlapdij, utolso.getAktualisVillanyOraallas(), doubleAktualisVillany, doubleVillanyegysegar,
+                    intKozosKoltseg, intLakber);
             ujOraallas.hozzaadOraallas(ujOraallas);
-        visszaFoablakra(event);
+            visszaFoablakra(event);
         }
     }
 

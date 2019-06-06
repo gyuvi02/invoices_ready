@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class AdatKezelo {
     private static AdatKezelo peldany = new AdatKezelo();
@@ -50,6 +51,18 @@ public class AdatKezelo {
 
     public void adatTorles(Oraallas torlendo) {
         rezsiAdatok.remove(torlendo);
+    }
+
+    public int alapdijSzamito(Oraallas elem) {
+        ListIterator<Oraallas> listIterator = rezsiAdatok.listIterator();
+        if (listIterator.hasPrevious()) {
+            int kulonbseg = elem.getHonap() - listIterator.previous().getHonap();
+            return kulonbseg >= 0 ? kulonbseg * elem.gazAlapdij : (kulonbseg + 12) * elem.gazAlapdij;
+//            if (kulonbseg < 0) {
+//                return (kulonbseg + 12) * elem.gazAlapdij;
+//            }
+//            return kulonbseg * elem.gazAlapdij;
+        }else return elem.gazAlapdij;
     }
 
 }

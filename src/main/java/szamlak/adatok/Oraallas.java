@@ -7,23 +7,25 @@ import java.util.Locale;
 public class Oraallas {
     int ev;
     int honap;
-    int elozoGazOraallas;
-    int aktualisGazOraallas;
+    double elozoGazOraallas;
+    double aktualisGazOraallas;
     double egysegarGaz;
-    int elozoVillanyOraallas;
-    int aktualisVillanyOraallas;
+    int gazAlapdij;
+    double elozoVillanyOraallas;
+    double aktualisVillanyOraallas;
     double egysegarVillany;
     int kozosKoltseg;
     int lakber;
 
-    public Oraallas(int ev, int honap, int elozoGazOraallas, int aktualisGazOraallas, double egysegarGaz,
-                    int elozoVillanyOraallas, int aktualisVillanyOraallas, double getEgysegarVillany, int kozosKoltseg,
+    public Oraallas(int ev, int honap, double elozoGazOraallas, double aktualisGazOraallas, double egysegarGaz, int gazAlapdij,
+                    double elozoVillanyOraallas, double aktualisVillanyOraallas, double getEgysegarVillany, int kozosKoltseg,
                     int lakber) {
         this.ev = ev;
         this.honap = honap;
         this.elozoGazOraallas = elozoGazOraallas;
         this.aktualisGazOraallas = aktualisGazOraallas;
         this.egysegarGaz = egysegarGaz;
+        this.gazAlapdij = gazAlapdij;
         this.elozoVillanyOraallas = elozoVillanyOraallas;
         this.aktualisVillanyOraallas = aktualisVillanyOraallas;
         this.egysegarVillany = getEgysegarVillany;
@@ -35,29 +37,29 @@ public class Oraallas {
         DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(Locale.getDefault());
         formatSymbols.setGroupingSeparator(' ');
         DecimalFormat df = new DecimalFormat("###,###.##", formatSymbols);
-        int gazFogyasztas = elem.gazFogyasztasSzamolo();
-        int villanyFogyasztas = elem.villanyFogyasztasSzamolo();
-        int gazHavi = ((int) Math.round(gazFogyasztas * elem.getEgysegarGaz()));
-        int villanyHavi = (int) Math.round(villanyFogyasztas * elem.getEgysegarVillany());
+        double gazFogyasztas = elem.gazFogyasztasSzamolo();
+        double villanyFogyasztas = elem.villanyFogyasztasSzamolo();
+        double gazHavi = gazFogyasztas * elem.getEgysegarGaz();
+        double villanyHavi = villanyFogyasztas * elem.getEgysegarVillany();
         StringBuilder sb = new StringBuilder();
-        sb.append("Gáz: \nFogyasztás a megelőző hónap óta: " + gazFogyasztas + " köbméter");
-        sb.append("\nA gázszámla ebben az időszakban: " + df.format(gazHavi) + " Ft");
+        sb.append("Gáz: \nFogyasztás a megelőző hónap óta: " + df.format(gazFogyasztas) + " köbméter");
+        sb.append("\nA gázszámla ebben az időszakban: " + df.format(Math.round(gazHavi)) + " Ft");
         sb.append("\nA gázóraállás az időszak végén: " + df.format(elem.getAktualisGazOraallas()) );
-        sb.append("\n\nVillany: \nFogyasztás a megelőző hónap óta: " + villanyFogyasztas + " kW");
-        sb.append("\nA villanyszámla ebben az időszakban: " + df.format(villanyHavi) + " Ft");
+        sb.append("\nGáz alapdíj: " + df.format(AdatKezelo.getInstance().alapdijSzamito(elem)) + " Ft");
+        sb.append("\n\nVillany: \nFogyasztás a megelőző hónap óta: " + df.format(villanyFogyasztas)+ " kW");
+        sb.append("\nA villanyszámla ebben az időszakban: " + df.format(Math.round(villanyHavi)) + " Ft");
         sb.append("\nA villanyóraállás az időszak végén: " + df.format(elem.aktualisVillanyOraallas) );
         sb.append("\n\nKözös költség: " + df.format(elem.getKozosKoltseg()) + " Ft");
         sb.append("\n\nAlbérleti díj: " + df.format(elem.getLakber()) + " Ft");
-        sb.append("\n\nÖsszes fizetendő: " + df.format(gazHavi + villanyHavi + elem.getKozosKoltseg() + elem.getLakber()) + " Ft");
+        sb.append("\n\nÖsszes fizetendő: " + df.format(gazHavi + villanyHavi + elem.gazAlapdij + elem.getKozosKoltseg() + elem.getLakber()) + " Ft");
         return sb.toString();
     }
 
-    public int gazFogyasztasSzamolo() {
-
+    public double gazFogyasztasSzamolo() {
         return this.getAktualisGazOraallas() - this.getElozoGazOraallas();
     }
 
-    public int villanyFogyasztasSzamolo() {
+    public double villanyFogyasztasSzamolo() {
         return this.getAktualisVillanyOraallas() - this.getElozoVillanyOraallas();
     }
 
@@ -83,11 +85,11 @@ public class Oraallas {
         return honap;
     }
 
-    public int getElozoGazOraallas() {
+    public double getElozoGazOraallas() {
         return elozoGazOraallas;
     }
 
-    public int getAktualisGazOraallas() {
+    public double getAktualisGazOraallas() {
         return aktualisGazOraallas;
     }
 
@@ -95,11 +97,13 @@ public class Oraallas {
         return egysegarGaz;
     }
 
-    public int getElozoVillanyOraallas() {
+    public int getGazAlapdij(){return gazAlapdij; }
+
+    public double getElozoVillanyOraallas() {
         return elozoVillanyOraallas;
     }
 
-    public int getAktualisVillanyOraallas() {
+    public double getAktualisVillanyOraallas() {
         return aktualisVillanyOraallas;
     }
 

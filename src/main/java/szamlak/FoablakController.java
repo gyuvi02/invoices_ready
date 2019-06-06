@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class FoablakController {
+    int utolsoIndex = AdatKezelo.getInstance().getRezsiAdatok().size() - 1;
+    Oraallas utolso = AdatKezelo.getInstance().getRezsiAdatok().get(utolsoIndex);
 
     @FXML
     private TextArea szamlaReszletek;
@@ -54,19 +56,35 @@ public class FoablakController {
     }
 
     public void torlesBiztos() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Teljesen biztos");
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Nem");
+        Oraallas elem = szamlaLista.getSelectionModel().getSelectedItem();
+        if (!(elem.getHonap() == utolso.getHonap())){
+            Alert nemUtolsoAlert = new Alert(Alert.AlertType.WARNING);
+            ((Button) nemUtolsoAlert.getDialogPane().lookupButton(ButtonType.OK)).setText("Megértettem");
+            nemUtolsoAlert.setTitle("Nem törölhető");
+            nemUtolsoAlert.setHeaderText("Csak a legutolsó hónap törölhető!");
+            nemUtolsoAlert.setContentText("Nem változtathatjuk meg visszamenőleg a régi adatokat!");
 
-        alert.setTitle("Törlés megerősítése");
-        alert.setHeaderText("Biztos, hogy törölni akarja ezeket az adatokat?");
-        alert.setContentText("Biztos?");
+            Optional<ButtonType> result = nemUtolsoAlert.showAndWait();
+            if (result.get() == ButtonType.OK){
+            } else {
+                return;
+            }
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            torlesGomb();
-        } else {
-            return;
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Teljesen biztos");
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Nem");
+
+            alert.setTitle("Törlés megerősítése");
+            alert.setHeaderText("Biztos, hogy törölni akarja ezeket az adatokat?");
+            alert.setContentText("Biztos?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                torlesGomb();
+            } else {
+                return;
+            }
         }
     }
 

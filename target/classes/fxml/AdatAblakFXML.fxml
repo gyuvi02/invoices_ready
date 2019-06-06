@@ -15,16 +15,17 @@
                       GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="2018" />
                         <String fx:value="2019" />
                         <String fx:value="2020" />
                         <String fx:value="2021" />
                         <String fx:value="2022" />
                         <String fx:value="2023" />
+                        <String fx:value="2024" />
+                        <String fx:value="2025" />
                     </FXCollections>
                 </items>
                 <GridPane.margin>
-                  <Insets bottom="20" left="80" top="20.0" />
+                  <Insets bottom="20" left="80" top="10.0" />
                </GridPane.margin>
             </ComboBox>
              <ComboBox fx:id="honapValaszto" onAction="#honapBeiras" prefWidth="200.0" promptText="Hónap kiválasztása" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -45,83 +46,117 @@
                      </FXCollections>
                  </items>
                  <GridPane.margin>
-                     <Insets bottom="20.0" left="10" top="20.0" />
+                     <Insets bottom="20.0" left="10" top="10.0" />
                  </GridPane.margin>
              </ComboBox>
          </children>
          <Label GridPane.columnIndex="0" GridPane.rowIndex="1"  text="Adja meg az aktuális gázóraállást:">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="100" top="20.0" />
+                 <Insets bottom="20.0" left="100" top="5.0" />
              </GridPane.margin>
          </Label>
          <TextField fx:id="aktualisGaz" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="100">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="10" top="20.0" />
+                 <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
          </TextField>
 
          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="A gáz egységára:">
-              <GridPane.margin>
-                  <Insets bottom="20.0" left="100" top="20.0" />
-              </GridPane.margin>
-         </Label>
-         <TextField fx:id="gazEgysegar" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="100">
+            <GridPane.margin>
+                <Insets bottom="20.0" left="100" top="5.0" />
+            </GridPane.margin>
+        </Label>
+            <TextField fx:id="gazEgysegar" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="100">
+                <GridPane.margin>
+                    <Insets bottom="20.0" left="10" top="5.0" />
+                </GridPane.margin>
+            </TextField>
+
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="A gáz alapdíja:">
+                <GridPane.margin>
+                    <Insets bottom="20.0" left="100" top="5.0" />
+                </GridPane.margin>
+            </Label>
+            <TextField fx:id="gazAlapDij" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="100">
+                <GridPane.margin>
+                    <Insets bottom="20.0" left="10" top="5.0" />
+                </GridPane.margin>
+            </TextField>
+
+         <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="Adja meg az aktuális villanyóraállást:">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="10" top="20.0" />
+                 <Insets bottom="20.0" left="100" top="5.0" />
+             </GridPane.margin>
+         </Label>
+         <TextField fx:id="aktualisVillany" GridPane.columnIndex="1" GridPane.rowIndex="5" maxWidth="100">
+             <GridPane.margin>
+                 <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
          </TextField>
 
-         <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="Adja meg az aktuális villanyóraállást:">
+         <Label GridPane.columnIndex="0" GridPane.rowIndex="6" text="A villany egységára:">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="100" top="20.0" />
+                 <Insets bottom="20.0" left="100" top="5.0" />
              </GridPane.margin>
          </Label>
-         <TextField fx:id="aktualisVillany" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="100">
+         <TextField fx:id="villanyEgysegar" GridPane.columnIndex="1" GridPane.rowIndex="6" maxWidth="100">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="10" top="20.0" />
+                 <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
          </TextField>
 
-         <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="A villany egységára:">
+         <Label GridPane.columnIndex="0" GridPane.rowIndex="7" text="A közös költség:">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="100" top="20.0" />
+                 <Insets bottom="20.0" left="100" top="5.0" />
              </GridPane.margin>
          </Label>
-         <TextField fx:id="villanyEgysegar" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="100">
+         <TextField fx:id="kozosKoltseg" GridPane.columnIndex="1" GridPane.rowIndex="7" maxWidth="100">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="10" top="20.0" />
+                 <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
          </TextField>
 
-         <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="A közös költség:">
+         <Label GridPane.columnIndex="0" GridPane.rowIndex="8" text="A lakbér:">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="100" top="20.0" />
+                 <Insets bottom="20.0" left="100" top="5.0" />
              </GridPane.margin>
          </Label>
-         <TextField fx:id="kozosKoltseg" GridPane.columnIndex="1" GridPane.rowIndex="5" maxWidth="100">
+         <TextField fx:id="lakber" GridPane.columnIndex="1" GridPane.rowIndex="8" maxWidth="100">
              <GridPane.margin>
-                 <Insets bottom="20.0" left="10" top="20.0" />
+                 <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
          </TextField>
 
-         <Label GridPane.columnIndex="0" GridPane.rowIndex="6" text="A lakbér:">
-             <GridPane.margin>
-                 <Insets bottom="20.0" left="100" top="20.0" />
-             </GridPane.margin>
-         </Label>
-         <TextField fx:id="lakber" GridPane.columnIndex="1" GridPane.rowIndex="6" maxWidth="100">
-             <GridPane.margin>
-                 <Insets bottom="20.0" left="10" top="20.0" />
-             </GridPane.margin>
-         </TextField>
-         </GridPane>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="9" text="Lecserélték ebben a hónapban valamelyik mérőórát?:">
+                <GridPane.margin>
+                    <Insets bottom="20.0" left="100" top="10.0" />
+                </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="csereLegordulo" onAction="#vanCsere" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Nem" />
+                    <String fx:value="Igen" />
+                    </FXCollections>
+                </items>
+                <GridPane.margin>
+                    <Insets bottom="20.0" left="10" top="10.0" />
+                </GridPane.margin>
+            </ComboBox>
+
+        </GridPane>
     </top>
     <bottom>
         <HBox alignment="CENTER" prefHeight="29.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="mento" alignment="BASELINE_CENTER" onAction="#oraallasMentes" text="Mentés" >
                     <HBox.margin>
-                        <Insets bottom="15.0" right="200" />
+                        <Insets bottom="15.0" right="150" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="csere" alignment="BASELINE_CENTER" onAction="#oraCsere" text="Óracsere" >
+                    <HBox.margin>
+                        <Insets bottom="15.0" right="150" />
                     </HBox.margin>
                 </Button>
                 <Button fx:id="kilepo" alignment="CENTER_RIGHT" onAction="#visszaFoablakra" text="Mégsem" >
