@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class FoablakController {
-    int utolsoIndex = AdatKezelo.getInstance().getRezsiAdatok().size() - 1;
+    int utolsoIndex = utolsoElemSzam();
     Oraallas utolso = AdatKezelo.getInstance().getRezsiAdatok().get(utolsoIndex);
 
     @FXML
@@ -47,7 +47,9 @@ public class FoablakController {
     public void torlesGomb() {
         Oraallas elem = szamlaLista.getSelectionModel().getSelectedItem();
         elem.elemTorles(elem);
+        utolso = AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam());
         initialize();
+
     }
 
     public void megnyitAdatAblak(ActionEvent event) throws IOException {
@@ -65,10 +67,11 @@ public class FoablakController {
             nemUtolsoAlert.setContentText("Nem változtathatjuk meg visszamenőleg a régi adatokat!");
 
             Optional<ButtonType> result = nemUtolsoAlert.showAndWait();
-            if (result.get() == ButtonType.OK){
-            } else {
-                return;
-            }
+//            if (result.get() == ButtonType.OK);
+//            {
+//            } else {
+//                return;
+//            }
 
         }else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -86,6 +89,10 @@ public class FoablakController {
                 return;
             }
         }
+    }
+
+    private int utolsoElemSzam() {
+        return AdatKezelo.getInstance().getRezsiAdatok().size() - 1;
     }
 
 }

@@ -28,7 +28,7 @@
                   <Insets bottom="20" left="80" top="10.0" />
                </GridPane.margin>
             </ComboBox>
-             <ComboBox fx:id="honapValaszto" onAction="#honapBeiras" prefWidth="200.0" promptText="Hónap kiválasztása" GridPane.columnIndex="1" GridPane.rowIndex="0">
+             <ComboBox fx:id="honapValaszto" onAction="#honapBeiras" prefWidth="100.0" promptText="Hónap kiválasztása" GridPane.columnIndex="1" GridPane.rowIndex="0">
                  <items>
                      <FXCollections fx:factory="observableArrayList">
                          <String fx:value="Január" />
@@ -55,7 +55,7 @@
                  <Insets bottom="20.0" left="100" top="5.0" />
              </GridPane.margin>
          </Label>
-         <TextField fx:id="aktualisGaz" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="100">
+         <TextField fx:id="aktualisGaz" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="150">
              <GridPane.margin>
                  <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
@@ -88,7 +88,7 @@
                  <Insets bottom="20.0" left="100" top="5.0" />
              </GridPane.margin>
          </Label>
-         <TextField fx:id="aktualisVillany" GridPane.columnIndex="1" GridPane.rowIndex="5" maxWidth="100">
+         <TextField fx:id="aktualisVillany" GridPane.columnIndex="1" GridPane.rowIndex="5" maxWidth="150">
              <GridPane.margin>
                  <Insets bottom="20.0" left="10" top="5.0" />
              </GridPane.margin>
@@ -127,12 +127,12 @@
              </GridPane.margin>
          </TextField>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="9" text="Lecserélték ebben a hónapban valamelyik mérőórát?:">
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="9" text="Lecserélték ebben a hónapban valamelyik mérőórát?">
                 <GridPane.margin>
                     <Insets bottom="20.0" left="100" top="10.0" />
                 </GridPane.margin>
             </Label>
-            <ComboBox fx:id="csereLegordulo" onAction="#vanCsere" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <ComboBox fx:id="csereLegordulo"  prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Nem" />
@@ -150,11 +150,6 @@
         <HBox alignment="CENTER" prefHeight="29.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="mento" alignment="BASELINE_CENTER" onAction="#oraallasMentes" text="Mentés" >
-                    <HBox.margin>
-                        <Insets bottom="15.0" right="150" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="csere" alignment="BASELINE_CENTER" onAction="#oraCsere" text="Óracsere" >
                     <HBox.margin>
                         <Insets bottom="15.0" right="150" />
                     </HBox.margin>

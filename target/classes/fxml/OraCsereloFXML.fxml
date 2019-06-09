@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="szamlak.OraCsereloController">
+<?import javafx.scene.control.TextField?>
+<BorderPane  prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="szamlak.OraCsereloController">
    <bottom>
       <HBox prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="338.0">
                <children>
-                  <Button fx:id="kilepo" onAction="#visszaAdatablakra" prefHeight="20.0" prefWidth="150.0" text="Mentés és visszalépés" textAlignment="CENTER">
+                  <Button fx:id="mentes" onAction="#elmentes" prefHeight="20.0" prefWidth="150.0" text="Mentés és visszalépés" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets left="50.0" />
                      </VBox.margin>
@@ -31,5 +40,36 @@
          </children>
       </HBox>
    </bottom>
+   <center>
+      <GridPane>
+         <Label text="Melyik mérőórát cserélték le: " GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <GridPane.margin>
+               <Insets left="50.0" top="50.0" />
+            </GridPane.margin></Label>
+         <ComboBox fx:id="melyikora" onAction="#oraValasztas" prefWidth="100.0" BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Gázóra" />
+                  <String fx:value="Villanyóra" />
+               </FXCollections>
+            </items>
+            <GridPane.margin>
+               <Insets left="20.0" top="50.0" />
+            </GridPane.margin>
+         </ComboBox>
+         <Label text="Mi volt az utolsó óraállás a leszerelt mérőórán?" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <GridPane.margin>
+               <Insets left="50.0" top="50.0" />
+            </GridPane.margin>
+         </Label>
+         <TextField fx:id="vegsoAllas" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+               <Insets left="20.0" top="50.0" />
+            </GridPane.margin>
+         </TextField>
+      </GridPane>
+   </center>
+   <left>
+   </left>
 
 </BorderPane>

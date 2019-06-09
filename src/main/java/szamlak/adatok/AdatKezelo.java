@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class AdatKezelo {
     private static AdatKezelo peldany = new AdatKezelo();
@@ -54,15 +53,29 @@ public class AdatKezelo {
     }
 
     public int alapdijSzamito(Oraallas elem) {
-        ListIterator<Oraallas> listIterator = rezsiAdatok.listIterator();
-        if (listIterator.hasPrevious()) {
-            int kulonbseg = elem.getHonap() - listIterator.previous().getHonap();
+        if (elemsorszam(elem) != 0) {
+            int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
             return kulonbseg >= 0 ? kulonbseg * elem.gazAlapdij : (kulonbseg + 12) * elem.gazAlapdij;
-//            if (kulonbseg < 0) {
-//                return (kulonbseg + 12) * elem.gazAlapdij;
-//            }
-//            return kulonbseg * elem.gazAlapdij;
         }else return elem.gazAlapdij;
+    }
+
+    public int kozosKoltsegSzamito(Oraallas elem) {
+        if (elemsorszam(elem) != 0) {
+            int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+            return kulonbseg >= 0 ? kulonbseg * elem.getKozosKoltseg(): (kulonbseg + 12) * elem.getKozosKoltseg();
+        }else return elem.getKozosKoltseg();
+    }
+
+    public int berletSzamito(Oraallas elem) {
+        if (elemsorszam(elem) != 0) {
+            int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+            return kulonbseg >= 0 ? kulonbseg * elem.getLakber(): (kulonbseg + 12) * elem.getLakber()   ;
+        }else return elem.getLakber();
+
+    }
+
+    private int elemsorszam(Oraallas elem) {
+        return rezsiAdatok.indexOf(elem);
     }
 
 }

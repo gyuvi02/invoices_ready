@@ -5,21 +5,23 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class Oraallas {
-    int ev;
-    int honap;
-    double elozoGazOraallas;
-    double aktualisGazOraallas;
-    double egysegarGaz;
-    int gazAlapdij;
-    double elozoVillanyOraallas;
-    double aktualisVillanyOraallas;
-    double egysegarVillany;
-    int kozosKoltseg;
-    int lakber;
+    protected int ev;
+    protected int honap;
+    protected double elozoGazOraallas;
+    protected double aktualisGazOraallas;
+    protected double egysegarGaz;
+    protected int gazAlapdij;
+    protected double elozoVillanyOraallas;
+    protected double aktualisVillanyOraallas;
+    protected double egysegarVillany;
+    protected int kozosKoltseg;
+    protected int lakber;
+    protected double csereGaz;
+    protected double csereVillany;
 
     public Oraallas(int ev, int honap, double elozoGazOraallas, double aktualisGazOraallas, double egysegarGaz, int gazAlapdij,
                     double elozoVillanyOraallas, double aktualisVillanyOraallas, double getEgysegarVillany, int kozosKoltseg,
-                    int lakber) {
+                    int lakber, double csereGaz, double csereVillany) {
         this.ev = ev;
         this.honap = honap;
         this.elozoGazOraallas = elozoGazOraallas;
@@ -31,6 +33,8 @@ public class Oraallas {
         this.egysegarVillany = getEgysegarVillany;
         this.kozosKoltseg = kozosKoltseg;
         this.lakber = lakber;
+        this.csereGaz = csereGaz;
+        this.csereVillany = csereVillany;
     }
 
     public static String reszletesSzoveg(Oraallas elem) {
@@ -41,26 +45,30 @@ public class Oraallas {
         double villanyFogyasztas = elem.villanyFogyasztasSzamolo();
         double gazHavi = gazFogyasztas * elem.getEgysegarGaz();
         double villanyHavi = villanyFogyasztas * elem.getEgysegarVillany();
+        int alapdij = AdatKezelo.getInstance().alapdijSzamito(elem);
+        int kozosK = AdatKezelo.getInstance().kozosKoltsegSzamito(elem);
+        int alberlet = AdatKezelo.getInstance().berletSzamito(elem);
         StringBuilder sb = new StringBuilder();
         sb.append("Gáz: \nFogyasztás a megelőző hónap óta: " + df.format(gazFogyasztas) + " köbméter");
         sb.append("\nA gázszámla ebben az időszakban: " + df.format(Math.round(gazHavi)) + " Ft");
         sb.append("\nA gázóraállás az időszak végén: " + df.format(elem.getAktualisGazOraallas()) );
-        sb.append("\nGáz alapdíj: " + df.format(AdatKezelo.getInstance().alapdijSzamito(elem)) + " Ft");
+        sb.append("\nGáz alapdíj: " + df.format(alapdij) + " Ft");
         sb.append("\n\nVillany: \nFogyasztás a megelőző hónap óta: " + df.format(villanyFogyasztas)+ " kW");
         sb.append("\nA villanyszámla ebben az időszakban: " + df.format(Math.round(villanyHavi)) + " Ft");
         sb.append("\nA villanyóraállás az időszak végén: " + df.format(elem.aktualisVillanyOraallas) );
-        sb.append("\n\nKözös költség: " + df.format(elem.getKozosKoltseg()) + " Ft");
-        sb.append("\n\nAlbérleti díj: " + df.format(elem.getLakber()) + " Ft");
-        sb.append("\n\nÖsszes fizetendő: " + df.format(gazHavi + villanyHavi + elem.gazAlapdij + elem.getKozosKoltseg() + elem.getLakber()) + " Ft");
+        sb.append("\n\nKözös költség: " + df.format(kozosK) + " Ft");
+        sb.append("\n\nAlbérleti díj: " + df.format(alberlet) + " Ft");
+        sb.append("\n\nÖsszes fizetendő: " + df.format (Math.round(gazHavi + villanyHavi + alapdij +
+                kozosK + alberlet)) + " Ft");
         return sb.toString();
     }
 
     public double gazFogyasztasSzamolo() {
-        return this.getAktualisGazOraallas() - this.getElozoGazOraallas();
+        return this.getAktualisGazOraallas() - this.getElozoGazOraallas() + this.csereGaz;
     }
 
     public double villanyFogyasztasSzamolo() {
-        return this.getAktualisVillanyOraallas() - this.getElozoVillanyOraallas();
+        return this.getAktualisVillanyOraallas() - this.getElozoVillanyOraallas() + this.csereVillany;
     }
 
     public void hozzaadOraallas(Oraallas ujOraallas) {
@@ -119,5 +127,19 @@ public class Oraallas {
         return lakber;
     }
 
+    public double getCsereGaz() {
+        return csereGaz;
+    }
 
+    public void setCsereGaz(double csereGaz) {
+        this.csereGaz = csereGaz;
+    }
+
+    public double getCsereVillany() {
+        return csereVillany;
+    }
+
+    public void setCsereVillany(double csereVillany) {
+        this.csereVillany = csereVillany;
+    }
 }
