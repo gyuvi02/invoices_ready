@@ -65,7 +65,7 @@ public class FoablakController {
             nemUtolsoAlert.setTitle("Nem törölhető");
             nemUtolsoAlert.setHeaderText("Csak a legutolsó hónap törölhető!");
             nemUtolsoAlert.setContentText("Nem változtathatjuk meg visszamenőleg a régi adatokat!");
-
+            nemUtolsoAlert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
             Optional<ButtonType> result = nemUtolsoAlert.showAndWait();
 //            if (result.get() == ButtonType.OK);
 //            {
@@ -81,6 +81,7 @@ public class FoablakController {
             alert.setTitle("Törlés megerősítése");
             alert.setHeaderText("Biztos, hogy törölni akarja ezeket az adatokat?");
             alert.setContentText("Biztos?");
+            alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {

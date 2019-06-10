@@ -15,13 +15,14 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.TextField?>
-<BorderPane  prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="szamlak.OraCsereloController">
+<BorderPane stylesheets="/fxml/oraCsereloCSS.css" prefHeight="500.0" prefWidth="750.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="szamlak.OraCsereloController">
    <bottom>
-      <HBox prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="csereGombsor" prefHeight="65.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="338.0">
                <children>
-                  <Button fx:id="mentes" onAction="#elmentes" prefHeight="20.0" prefWidth="150.0" text="Mentés és visszalépés" textAlignment="CENTER">
+                  <Button fx:id="mentes" onAction="#elmentes" prefHeight="20.0" minWidth="150.0" text="Mentés és visszalépés" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets left="50.0" />
                      </VBox.margin>
@@ -44,9 +45,9 @@
       <GridPane>
          <Label text="Melyik mérőórát cserélték le: " GridPane.columnIndex="0" GridPane.rowIndex="0">
             <GridPane.margin>
-               <Insets left="50.0" top="50.0" />
+               <Insets left="50.0" top="150.0" />
             </GridPane.margin></Label>
-         <ComboBox fx:id="melyikora" onAction="#oraValasztas" prefWidth="100.0" BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+         <ComboBox fx:id="melyikora" onAction="#oraValasztas" prefWidth="150.0" BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <items>
                <FXCollections fx:factory="observableArrayList">
                   <String fx:value="Gázóra" />
@@ -54,7 +55,7 @@
                </FXCollections>
             </items>
             <GridPane.margin>
-               <Insets left="20.0" top="50.0" />
+               <Insets left="20.0" top="150.0" />
             </GridPane.margin>
          </ComboBox>
          <Label text="Mi volt az utolsó óraállás a leszerelt mérőórán?" GridPane.columnIndex="0" GridPane.rowIndex="1">

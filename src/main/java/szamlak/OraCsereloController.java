@@ -18,17 +18,12 @@ public class OraCsereloController {
     @FXML
     private ComboBox melyikora;
 
-//    @FXML
-//    private Button mentes;
-//
-//    @FXML
-//    private Button megse;
-//
     @FXML
     private TextField vegsoAllas;
 
     public void initialize() {
         vegsoAllas.setPromptText("Tizedes pontot használj!");
+        melyikora.getSelectionModel().selectFirst();
     }
 
     public void oraValasztas(ActionEvent event) {
@@ -40,14 +35,28 @@ public class OraCsereloController {
             return;
         }
         if (melyikora.getValue().equals("Gázóra")) {
-            double regiGaz = Double.parseDouble(vegsoAllas.getText()) -  AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam()).getAktualisGazOraallas();
-            if (regiGaz<0) {
+            double regiGaz = Double.parseDouble(vegsoAllas.getText()) -
+                    AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam()).getAktualisGazOraallas();
+            if (regiGaz < 0) {
                 errorDialog();
                 return;
             }
+            csereloBeolvasott.setCsereGazLezaro(Double.parseDouble(vegsoAllas.getText()));
             csereloBeolvasott.setCsereGaz(regiGaz);
             csereloBeolvasott.kiir();
             visszaAdatablakra(event);
+        } else {
+            double regiVillany = Double.parseDouble(vegsoAllas.getText()) -
+                    AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam()).getAktualisVillanyOraallas();
+            if (regiVillany < 0) {
+                errorDialog();
+                return;
+            }
+            csereloBeolvasott.setCsereVillanyLezaro(Double.parseDouble(vegsoAllas.getText()));
+            csereloBeolvasott.setCsereVillany(regiVillany);
+            csereloBeolvasott.kiir();
+            visszaAdatablakra(event);
+
         }
     }
 
@@ -60,7 +69,11 @@ public class OraCsereloController {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("HIBA");
         alert.setHeaderText("Hiba valamelyik mezővel");
-        alert.setContentText("Nem lehet üres a mező, és csak számokat lehet beírni!\nVagy tizedes vesszőt használtál pont helyett.");
+        alert.setContentText("Nem lehet üres a mező, és csak számokat lehet beírni!" +
+                "\nVagy tizedes vesszőt használtál pont helyett.");
+
+        alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
+
         alert.showAndWait();
     }
 
@@ -68,7 +81,9 @@ public class OraCsereloController {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("HIBA");
         alert.setHeaderText("Hiba az óraállásokkal!");
-        alert.setContentText("A leszerelt óra utolsó leolvasott értéke nem lehet kevesebb, mint a megelőző hónapban rögzített!\nEllenőrizd a beírt értéket");
+        alert.setContentText("A leszerelt óra utolsó leolvasott értéke nem lehet kevesebb, mint " +
+                "a megelőző hónapban rögzített!\nEllenőrizd a beírt értéket");
+        alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
         alert.showAndWait();
     }
 

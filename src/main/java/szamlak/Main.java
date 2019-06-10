@@ -22,7 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage elsoStage) throws Exception {
         stage = elsoStage; //ez kell ahhoz, hogy mukodjon a getStage metodus
-        ablak = new Scene(loadFXML("FoablakFXML"), 600, 500);
+        ablak = new Scene(loadFXML("FoablakFXML"), 750, 500);
         stage.setTitle("Számla nyilvántartó") ;
         stage.setResizable(false);
         stage.setScene(ablak);

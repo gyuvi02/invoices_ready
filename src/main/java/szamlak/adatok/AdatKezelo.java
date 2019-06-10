@@ -52,26 +52,35 @@ public class AdatKezelo {
         rezsiAdatok.remove(torlendo);
     }
 
-    public int alapdijSzamito(Oraallas elem) {
-        if (elemsorszam(elem) != 0) {
-            int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+    public double alapdijSzamito(Oraallas elem) {
+            int kulonbseg = kulonbsegSzamito(elem);
             return kulonbseg >= 0 ? kulonbseg * elem.gazAlapdij : (kulonbseg + 12) * elem.gazAlapdij;
-        }else return elem.gazAlapdij;
     }
 
     public int kozosKoltsegSzamito(Oraallas elem) {
-        if (elemsorszam(elem) != 0) {
-            int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+        int kulonbseg = kulonbsegSzamito(elem);
             return kulonbseg >= 0 ? kulonbseg * elem.getKozosKoltseg(): (kulonbseg + 12) * elem.getKozosKoltseg();
-        }else return elem.getKozosKoltseg();
     }
 
     public int berletSzamito(Oraallas elem) {
-        if (elemsorszam(elem) != 0) {
-            int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
-            return kulonbseg >= 0 ? kulonbseg * elem.getLakber(): (kulonbseg + 12) * elem.getLakber()   ;
-        }else return elem.getLakber();
+        int alberlet = 0;
+        int kulonbseg = kulonbsegSzamito(elem);
+        if (kulonbseg >= 0) {
+            for (int i = 0; i < kulonbseg; i++) {
+                if (elem.getHonap() == 7 || elem.getHonap() == 8) {
+                    alberlet = alberlet + elem.getLakber() / 2;
+                } else alberlet = alberlet + elem.getLakber();
+            }
+        }else alberlet = (kulonbseg + 12) * elem.getLakber();
+        return alberlet;
+    }
 
+    public int kulonbsegSzamito(Oraallas elem) {
+        if (elemsorszam(elem) == 0) {
+            return 2; //1 lenne, de az elso szamla pont 2 honapos (januar es februar egyutt)
+        }
+        int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+        return kulonbseg;
     }
 
     private int elemsorszam(Oraallas elem) {

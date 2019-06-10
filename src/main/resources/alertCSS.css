@@ -1,0 +1,40 @@
+.root{
+    -fx-font-family: Garamond;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.button{
+    -fx-background-color: rgba(255, 17, 59, 0.8),
+    linear-gradient(#fafdfe, #e8f5fc),
+    linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 30;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 7,0,0,3 );
+}
+
+.button:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/*Az also mezo beallitasa*/
+.button-bar{
+    -fx-background-color: rgba(176, 237, 160, 0.5);
+    -fx-border-width: 1;
+    -fx-border-color: rgba(10, 10,200, 0.5);
+}
+/*A kozepso mezo beallitasai*/
+.content{
+    -fx-background-color: rgba(251, 209, 105, 0.5);
+    -fx-padding: 12px;
+}
+/*    A felso mezo beallitasa*/
+.header-panel{
+     -fx-background-color: rgba(0, 200,200, 0.8) ;
+     -fx-border-width: 1;
+     -fx-border-color: rgba(10, 10,200,0.5);
+ }
+

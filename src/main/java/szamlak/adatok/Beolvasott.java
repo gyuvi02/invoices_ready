@@ -13,6 +13,9 @@ public class Beolvasott {
     private String lakber;
     private double csereGaz;
     private double csereVillany;
+    private double csereGazLezaro;
+    private double csereVillanyLezaro;
+
 
 //    public Beolvasott(String aktualisGaz, String gazEgysegar, String gazAlapDij, String aktualisVillany, String villanyEgysegar, String kozosKoltseg, String lakber, double csereGaz, double csereVillany) {
 //        this.aktualisGaz = aktualisGaz;
@@ -39,8 +42,18 @@ public class Beolvasott {
     }
 
     public void kiir() {
-        System.out.println("CsereGaz: " + this.csereGaz);
-        System.out.println("CsereVillany: " + this.csereVillany);
+        System.out.println("Aktualis gaz: " + this.getAktualisGaz());
+        System.out.println("Gaz egysegar: " + this.getGazEgysegar());
+        System.out.println("Gaz alapdij: " + this.getGazAlapDij());
+        System.out.println("Aktualis villany: " + this.getAktualisVillany());
+        System.out.println("Villany egysegar: " + this.getVillanyEgysegar());
+        System.out.println("Kozos koltseg: " + this.getKozosKoltseg());
+        System.out.println("Lakber: " + this.getLakber());
+        System.out.println("CsereGaz: " + this.getCsereGaz());
+        System.out.println("CsereVillany: " + this.getCsereVillany());
+        System.out.println("CsereGazLezaro: " + this.getCsereGazLezaro());
+        System.out.println("CsereVillanyLezaro: " + this.getCsereVillanyLezaro());
+        System.out.println("\n***************************************\n");
     }
 
     public double getCsereGaz() {
@@ -113,5 +126,21 @@ public class Beolvasott {
 
     public void setLakber(String lakber) {
         this.lakber = lakber;
+    }
+
+    public double getCsereGazLezaro() {
+        return csereGazLezaro;
+    }
+
+    public void setCsereGazLezaro(double csereGazLezaro) {
+        this.csereGazLezaro = csereGazLezaro;
+    }
+
+    public double getCsereVillanyLezaro() {
+        return csereVillanyLezaro;
+    }
+
+    public void setCsereVillanyLezaro(double csereVillanyLezaro) {
+        this.csereVillanyLezaro = csereVillanyLezaro;
     }
 }

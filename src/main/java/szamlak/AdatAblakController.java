@@ -71,12 +71,11 @@ public class AdatAblakController {
 
 
     public void initialize() {
-        System.out.println(beolvasott.getGazEgysegar() + "\n");
-        if (beolvasott.getGazEgysegar().equals("null")) {
+        if (beolvasott.getGazEgysegar() == null) {
             elsoBeolvasottFeltoltes();
         }
         System.out.println("initialize accomplished");
-        kiir();
+        beolvasott.kiir();
         Oraallas utolso = AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam());
         evValaszto.getSelectionModel().select(String.valueOf(utolso.getEv())); //Ez es a kovetkezo beallitja, hogy az ev es a honap automatikusan a legutobbi utan alljon be
         honapValaszto.getSelectionModel().select(utolso.getHonap());
@@ -99,6 +98,7 @@ public class AdatAblakController {
     }
 
     public void visszaFoablakra(ActionEvent event) throws Exception {
+        elsoBeolvasottFeltoltes();
         Main.ablakBeallito("FoablakFXML");
         Main.getStage().setTitle("Számla nyilvántartó"); // vissza kell allitani az eredeti ablak cimet
     }
@@ -131,6 +131,8 @@ public class AdatAblakController {
     }
 
     public void oraallasMentes(ActionEvent event) throws Exception {
+        beolvasottFeltoltes();
+        beolvasott.kiir();
         if (tesztSzam()){
             errorDialogNemSzam();
             return;
@@ -139,15 +141,21 @@ public class AdatAblakController {
             errorDialogDatum();
             return;
         }
-        beolvasottFeltoltes();
-        doubleAktualisGaz = Double.parseDouble(beolvasott.getAktualisGaz()) + beolvasott.getCsereGaz();
-        doubleAktualisVillany = Double.parseDouble(beolvasott.getAktualisVillany()) + beolvasott.getCsereVillany();
+        doubleAktualisGaz = Double.parseDouble(beolvasott.getAktualisGaz()) + beolvasott.getCsereGaz()
+            + beolvasott.getCsereGazLezaro();
+        doubleAktualisVillany = Double.parseDouble(beolvasott.getAktualisVillany()) + beolvasott.getCsereVillany()
+                + beolvasott.getCsereVillanyLezaro();
         if (csereLegordulo.getValue().equals("Igen")) {
             oraCsere();
             return;
         }
         else if (doubleAktualisGaz < utolso.getAktualisGazOraallas() || doubleAktualisVillany < utolso.getAktualisVillanyOraallas()) {
             errorDialog();
+            return;
+        } else if (Double.parseDouble(beolvasott.getGazEgysegar()) < 0 || Double.parseDouble(beolvasott.getGazAlapDij()) < 0
+                || Double.parseDouble(beolvasott.getGazEgysegar()) < 0 || Double.parseDouble(beolvasott.getVillanyEgysegar()) < 0
+                || Integer.parseInt(beolvasott.getKozosKoltseg()) < 0 || Integer.parseInt(beolvasott.getLakber()) < 0) {
+            errorDialogNegativ();
             return;
         }
         Oraallas ujOraallas = new Oraallas(
@@ -156,7 +164,7 @@ public class AdatAblakController {
                 utolso.getAktualisGazOraallas(),
                 Double.parseDouble(beolvasott.getAktualisGaz()),
                 Double.parseDouble(beolvasott.getGazEgysegar()),
-                Integer.parseInt(beolvasott.getGazAlapDij()),
+                Double.parseDouble(beolvasott.getGazAlapDij()),
                 utolso.getAktualisVillanyOraallas(),
                 Double.parseDouble(beolvasott.getAktualisVillany()),
                 Double.parseDouble(beolvasott.getVillanyEgysegar()),
@@ -172,8 +180,9 @@ public class AdatAblakController {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("HIBA");
         alert.setHeaderText("Hiba valamelyik mezővel");
-        alert.setContentText("Nem lehet üres egyik mező sem, és csak számokat lehet beírni!\nVagy tizedes vesszőt használtál pont helyett.");
-//        alert.initOwner(root.getScene().getWindow());
+        alert.setContentText("Nem lehet üres egyik mező sem, és csak számokat lehet beírni!" +
+                "\nVagy tizedes vesszőt használtál pont helyett.");
+        alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
         alert.showAndWait();
     }
 
@@ -181,8 +190,18 @@ public class AdatAblakController {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("HIBA");
         alert.setHeaderText("Hiba az óraállásokkal!");
-        alert.setContentText("Az óraállás nem lehet kevesebb, mint a korábban rögzített!\nEsetleg mérőórát cseréltek?");
-//        alert.initOwner(root.getScene().getWindow());
+        alert.setContentText("Az óraállás nem lehet kevesebb, mint a korábban rögzített!" +
+                "\nEsetleg mérőórát cseréltek?");
+        alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
+        alert.showAndWait();
+    }
+
+    public void errorDialogNegativ() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("HIBA");
+        alert.setHeaderText("Negatív értékek");
+        alert.setContentText("Negatív értékeket nem adhatsz meg!");
+        alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
         alert.showAndWait();
     }
 
@@ -191,6 +210,7 @@ public class AdatAblakController {
         alert.setTitle("HIBA");
         alert.setHeaderText("Helytelen a dátum!");
         alert.setContentText("A dátum nem lehet korábbi vagy azonos, mint a legutóbbi!");
+        alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
         alert.showAndWait();
     }
 
@@ -199,7 +219,6 @@ public class AdatAblakController {
     }
 
     private boolean tesztSzam() {
-        kiir();
         if (isParsable(beolvasott.getAktualisGaz()) && isParsable(beolvasott.getGazEgysegar()) && isParsable(beolvasott.getGazAlapDij())
             && isParsable(beolvasott.getAktualisVillany()) && isParsable(beolvasott.getVillanyEgysegar()) &&
                 isParsable(beolvasott.getKozosKoltseg()) && isParsable(beolvasott.getLakber())) {
@@ -214,15 +233,17 @@ public class AdatAblakController {
 
 
     private void elsoBeolvasottFeltoltes() {
-//        beolvasott.setAktualisGaz();
+        beolvasott.setAktualisGaz("");
         beolvasott.setGazEgysegar(Double.toString(utolso.getEgysegarGaz()));
         beolvasott.setGazAlapDij(Double.toString(utolso.getGazAlapdij()));
-//        beolvasott.setAktualisVillany();
+        beolvasott.setAktualisVillany("");
         beolvasott.setVillanyEgysegar(Double.toString(utolso.getEgysegarVillany()));
-        beolvasott.setKozosKoltseg(Double.toString(utolso.getKozosKoltseg()));
-        beolvasott.setLakber(Double.toString(utolso.getLakber()));
-
-
+        beolvasott.setKozosKoltseg(Integer.toString(utolso.getKozosKoltseg()));
+        beolvasott.setLakber(Integer.toString(utolso.getLakber()));
+        beolvasott.setCsereGaz(0.0);
+        beolvasott.setCsereVillany(0.0);
+        beolvasott.setCsereGazLezaro(0.0);
+        beolvasott.setCsereVillanyLezaro(0.0);
     }
 
     private void beolvasottFeltoltes() {
@@ -260,12 +281,22 @@ public class AdatAblakController {
 //        this.csereVillany = csereVillany;
 //    }
 
-    public void kiir() {
-        System.out.println("CsereGaz: " + beolvasott.getCsereGaz());
-        System.out.println("AktualisGaz: " + beolvasott.getAktualisGaz());
-        System.out.println("Gazegysegar: " + beolvasott.getGazEgysegar());
-        System.out.println("\n***************************************\n");
-    }
+//    public void kiir() {
+//        System.out.println("Aktualis gaz: " + beolvasott.getAktualisGaz());
+//        System.out.println("Gaz egysegar: " + beolvasott.getGazEgysegar());
+//        System.out.println("Gaz alapdij: " + beolvasott.getGazAlapDij());
+//        System.out.println("Aktualis villany: " + beolvasott.getAktualisVillany());
+//        System.out.println("Villany egysegar: " + beolvasott.getVillanyEgysegar());
+//        System.out.println("Kozos koltseg: " + beolvasott.getKozosKoltseg());
+//        System.out.println("Lakber: " + beolvasott.getLakber());
+//        System.out.println("CsereGaz: " + beolvasott.getCsereGaz());
+//        System.out.println("CsereVillany: " + beolvasott.getCsereVillany());
+//        System.out.println("DoubleAktualisGaz: " + doubleAktualisGaz);
+//        System.out.println("DoubleAktualisVillany: " + doubleAktualisVillany);
+//        System.out.println("CsereGazLezaro: " + beolvasott.getCsereGazLezaro());
+//        System.out.println("CsereVillanyLezaro: " + beolvasott.getCsereVillanyLezaro());
+//        System.out.println("\n***************************************\n");
+//    }
 
     public Oraallas getOraallas() {
         return utolso;
