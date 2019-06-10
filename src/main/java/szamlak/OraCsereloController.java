@@ -43,7 +43,6 @@ public class OraCsereloController {
             }
             csereloBeolvasott.setCsereGazLezaro(Double.parseDouble(vegsoAllas.getText()));
             csereloBeolvasott.setCsereGaz(regiGaz);
-            csereloBeolvasott.kiir();
             visszaAdatablakra(event);
         } else {
             double regiVillany = Double.parseDouble(vegsoAllas.getText()) -
@@ -54,7 +53,6 @@ public class OraCsereloController {
             }
             csereloBeolvasott.setCsereVillanyLezaro(Double.parseDouble(vegsoAllas.getText()));
             csereloBeolvasott.setCsereVillany(regiVillany);
-            csereloBeolvasott.kiir();
             visszaAdatablakra(event);
 
         }
@@ -80,7 +78,7 @@ public class OraCsereloController {
     public void errorDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("HIBA");
-        alert.setHeaderText("Hiba az óraállásokkal!");
+        alert.setHeaderText("Hiba az óraállással!");
         alert.setContentText("A leszerelt óra utolsó leolvasott értéke nem lehet kevesebb, mint " +
                 "a megelőző hónapban rögzített!\nEllenőrizd a beírt értéket");
         alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");

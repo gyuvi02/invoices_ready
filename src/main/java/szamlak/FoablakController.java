@@ -67,11 +67,6 @@ public class FoablakController {
             nemUtolsoAlert.setContentText("Nem változtathatjuk meg visszamenőleg a régi adatokat!");
             nemUtolsoAlert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
             Optional<ButtonType> result = nemUtolsoAlert.showAndWait();
-//            if (result.get() == ButtonType.OK);
-//            {
-//            } else {
-//                return;
-//            }
 
         }else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

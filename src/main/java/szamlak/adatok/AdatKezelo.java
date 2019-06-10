@@ -86,5 +86,4 @@ public class AdatKezelo {
     private int elemsorszam(Oraallas elem) {
         return rezsiAdatok.indexOf(elem);
     }
-
 }

@@ -134,19 +134,4 @@ public class Oraallas {
         return lakber;
     }
 
-    public double getCsereGaz() {
-        return csereGaz;
-    }
-
-    public void setCsereGaz(double csereGaz) {
-        this.csereGaz = csereGaz;
-    }
-
-    public double getCsereVillany() {
-        return csereVillany;
-    }
-
-    public void setCsereVillany(double csereVillany) {
-        this.csereVillany = csereVillany;
-    }
 }

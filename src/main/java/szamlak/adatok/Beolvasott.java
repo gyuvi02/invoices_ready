@@ -16,22 +16,6 @@ public class Beolvasott {
     private double csereGazLezaro;
     private double csereVillanyLezaro;
 
-
-//    public Beolvasott(String aktualisGaz, String gazEgysegar, String gazAlapDij, String aktualisVillany, String villanyEgysegar, String kozosKoltseg, String lakber, double csereGaz, double csereVillany) {
-//        this.aktualisGaz = aktualisGaz;
-//        this.gazEgysegar = gazEgysegar;
-//        this.gazAlapDij = gazAlapDij;
-//        this.aktualisVillany = aktualisVillany;
-//        this.villanyEgysegar = villanyEgysegar;
-//        this.kozosKoltseg = kozosKoltseg;
-//        this.lakber = lakber;
-//        this.csereGaz = csereGaz;
-//        this.csereVillany = csereVillany;
-//    }
-
-//    public Beolvasott() {
-//    }
-
     private Beolvasott() {}
 
     public static Beolvasott getInstance() {
@@ -39,21 +23,6 @@ public class Beolvasott {
             egyPeldany = new Beolvasott();
         }
         return egyPeldany;
-    }
-
-    public void kiir() {
-        System.out.println("Aktualis gaz: " + this.getAktualisGaz());
-        System.out.println("Gaz egysegar: " + this.getGazEgysegar());
-        System.out.println("Gaz alapdij: " + this.getGazAlapDij());
-        System.out.println("Aktualis villany: " + this.getAktualisVillany());
-        System.out.println("Villany egysegar: " + this.getVillanyEgysegar());
-        System.out.println("Kozos koltseg: " + this.getKozosKoltseg());
-        System.out.println("Lakber: " + this.getLakber());
-        System.out.println("CsereGaz: " + this.getCsereGaz());
-        System.out.println("CsereVillany: " + this.getCsereVillany());
-        System.out.println("CsereGazLezaro: " + this.getCsereGazLezaro());
-        System.out.println("CsereVillanyLezaro: " + this.getCsereVillanyLezaro());
-        System.out.println("\n***************************************\n");
     }
 
     public double getCsereGaz() {
