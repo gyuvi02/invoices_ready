@@ -80,7 +80,7 @@ public class OraCsereloController {
         alert.setTitle("HIBA");
         alert.setHeaderText("Hiba az óraállással!");
         alert.setContentText("A leszerelt óra utolsó leolvasott értéke nem lehet kevesebb, mint " +
-                "a megelőző hónapban rögzített!\nEllenőrizd a beírt értéket");
+                "a megelőző hónapban rögzített!\nEllenőrizd a beírt értéket!");
         alert.getDialogPane().getScene().getStylesheets().add("alertCSS.css");
         alert.showAndWait();
     }

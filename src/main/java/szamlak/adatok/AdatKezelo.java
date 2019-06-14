@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AdatKezelo {
     private static AdatKezelo peldany = new AdatKezelo();
-    private static String filenev = "src/main/resources/rezsi.json";
+    private static String filenev = "D:\\/rezsi.json";
     private List<Oraallas> rezsiAdatok = new ArrayList<>();
 
     public static AdatKezelo getInstance() {
@@ -68,7 +68,7 @@ public class AdatKezelo {
         if (kulonbseg >= 0) {
             for (int i = 0; i < kulonbseg; i++) {
                 if (elem.getHonap() == 7 || elem.getHonap() == 8) {
-                    alberlet = alberlet + elem.getLakber() / 2;
+                    alberlet = 0;
                 } else alberlet = alberlet + elem.getLakber();
             }
         }else alberlet = (kulonbseg + 12) * elem.getLakber();
