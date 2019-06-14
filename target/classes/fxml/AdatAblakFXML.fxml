@@ -28,7 +28,7 @@
                   <Insets bottom="10" left="100" top="10.0" />
                </GridPane.margin>
             </ComboBox>
-             <ComboBox fx:id="honapValaszto" onAction="#honapBeiras" prefWidth="150.0" promptText="Hónap kiválasztása" GridPane.columnIndex="1" GridPane.rowIndex="0">
+             <ComboBox fx:id="honapValaszto" onAction="#honapBeiras" minWidth="150.0" promptText="Hónap kiválasztása" GridPane.columnIndex="1" GridPane.rowIndex="0">
                  <items>
                      <FXCollections fx:factory="observableArrayList">
                          <String fx:value="Január" />

@@ -5,7 +5,9 @@
 }
 
 .button{
-    -fx-font-size: 14;
+    -fx-min-height: 25;
+    -fx-min-width: 70;
+    -fx-font-size: 18;
     -fx-background-color: rgba(255, 17, 59, 0.8),
     linear-gradient(#fafdfe, #e8f5fc),
     linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);

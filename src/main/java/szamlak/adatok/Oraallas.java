@@ -41,26 +41,28 @@ public class Oraallas {
         DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(Locale.getDefault());
         formatSymbols.setGroupingSeparator(' ');
         DecimalFormat df = new DecimalFormat("###,###.##", formatSymbols);
+        int alberletHonap = AdatKezelo.getInstance().alberletKulonbsegSzamito(elem);
         double gazFogyasztas = elem.gazFogyasztasSzamolo();
         double villanyFogyasztas = elem.villanyFogyasztasSzamolo();
         double gazHavi = gazFogyasztas * elem.getEgysegarGaz();
         double villanyHavi = villanyFogyasztas * elem.getEgysegarVillany();
         double alapdij = AdatKezelo.getInstance().alapdijSzamito(elem);
         int kozosK = AdatKezelo.getInstance().kozosKoltsegSzamito(elem);
-        int alberlet = AdatKezelo.getInstance().berletSzamito(elem);
         int kulonbseg = AdatKezelo.getInstance().kulonbsegSzamito(elem);
         StringBuilder sb = new StringBuilder();
-        sb.append("Gáz: \nFogyasztás a megelőző hónap óta: " + df.format(gazFogyasztas) + " köbméter");
+        sb.append("Gáz:" + "\nFogyasztás a megelőző hónap óta: " + df.format(gazFogyasztas) + " köbméter");
         sb.append("\nA gázszámla ebben az időszakban: " + df.format(Math.round(gazHavi)) + " Ft");
         sb.append("\nA gázóraállás az időszak végén: " + df.format(elem.getAktualisGazOraallas()) );
         sb.append("\nGáz alapdíj (" + kulonbseg + " hónap): " + df.format(alapdij) + " Ft");
-        sb.append("\n\nVillany: \nFogyasztás a megelőző hónap óta: " + df.format(villanyFogyasztas)+ " kW");
+        sb.append("\n______________________________________________________________________________________");
+        sb.append("\nVillany: \nFogyasztás a megelőző hónap óta: " + df.format(villanyFogyasztas)+ " kW");
         sb.append("\nA villanyszámla ebben az időszakban: " + df.format(Math.round(villanyHavi)) + " Ft");
         sb.append("\nA villanyóraállás az időszak végén: " + df.format(elem.aktualisVillanyOraallas) );
-        sb.append("\n\nKözös költség (" + kulonbseg + " hónap): " + df.format(kozosK) + " Ft");
-        sb.append("\n\nAlbérleti díj (" + kulonbseg + " hónap): " + df.format(alberlet) + " Ft");
+        sb.append("\n______________________________________________________________________________________");
+        sb.append("\nKözös költség (" + kulonbseg + " hónap): " + df.format(kozosK) + " Ft");
+        sb.append("\n\nAlbérleti díj (" + alberletHonap + " hónap): " + df.format(alberletHonap * elem.getLakber()) + " Ft");
         sb.append("\n\nÖsszes fizetendő: " + df.format (Math.round(gazHavi + villanyHavi + alapdij +
-                kozosK + alberlet)) + " Ft");
+                kozosK + alberletHonap * elem.getLakber())) + " Ft");
         return sb.toString();
     }
 

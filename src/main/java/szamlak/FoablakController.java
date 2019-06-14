@@ -5,11 +5,20 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import szamlak.adatok.AdatKezelo;
 import szamlak.adatok.Oraallas;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 public class FoablakController {
     int utolsoIndex = utolsoElemSzam();
@@ -24,13 +33,13 @@ public class FoablakController {
     @FXML
     private Parent root;
 
-    public void initialize() {
+    public void initialize(){
         szamlaLista.getItems().setAll(AdatKezelo.getInstance().getRezsiAdatok());
         szamlaLista.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         szamlaLista.getSelectionModel().selectLast();
+        szamlaLista.scrollTo(utolso);
         Oraallas elem = szamlaLista.getSelectionModel().getSelectedItem();
         szamlaReszletek.setText(Oraallas.reszletesSzoveg(elem));
-
     }
 
     @FXML
@@ -49,7 +58,45 @@ public class FoablakController {
         elem.elemTorles(elem);
         utolso = AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam());
         initialize();
+    }
 
+    public void PDFkiiro() throws IOException{
+        List<String> sorok = new ArrayList<>();
+        Oraallas elem = szamlaLista.getSelectionModel().getSelectedItem();
+        PDDocument document = new  PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
+//        PDFont font = PDType0Font.load(document, new File("src/main/resources/cambriab.ttf"));
+        PDFont font = PDType0Font.load(document, new File("C:/Windows/fonts/cambriab.ttf"));
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(45, 700);
+        contentStream.setFont(font,18);
+        contentStream.setLeading(22.5f);//ez a soremeles, enelkul egymasra irja a sorokat
+        contentStream.showText("Albérleti elszámolás " + elem.getEv() + ". " + elem.getHonap() + ". hónap");
+        contentStream.newLine();
+        contentStream.newLine();
+        contentStream.setFont(font,14);
+
+        try
+        {
+            Scanner sc = new Scanner(Oraallas.reszletesSzoveg(elem));
+            while (sc.hasNextLine())
+            {
+                contentStream.newLine();
+                contentStream.showText(sc.nextLine());
+            }
+            sc.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        contentStream.endText();
+        contentStream.close();
+        String mentes = "D:/Komlossy62_" + elem.getEv() + "_" + elem.getHonap() + ".pdf";
+        document.save(new File(mentes));
+        document.close();
     }
 
     public void megnyitAdatAblak(ActionEvent event) throws IOException {

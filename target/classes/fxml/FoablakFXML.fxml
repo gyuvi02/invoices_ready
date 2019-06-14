@@ -18,7 +18,7 @@
         <VBox fx:id="felsoBox" prefWidth="750.0" BorderPane.alignment="CENTER" />
     </top>
     <left>
-        <ListView fx:id="szamlaLista" onMouseClicked="#listaKlikk" prefHeight="360.0" prefWidth="150.0" BorderPane.alignment="CENTER" />
+        <ListView fx:id="szamlaLista" onMouseClicked="#listaKlikk" prefHeight="360.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
     </left>
     <bottom>
         <HBox fx:id="gombsor" alignment="CENTER" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
@@ -30,13 +30,17 @@
                 </Button>
                 <Button onAction="#torlesBiztos" text="Törlés" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="20.0" right="80.0" top="5.0" />
+                        <Insets bottom="5.0"  right="50.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-
                 <Button fx:id="kilepo" alignment="CENTER_RIGHT" onAction="#menuKilepes" text="Kilépés">
                     <HBox.margin>
-                        <Insets bottom="5.0" right="20.0" top="5.0" />
+                        <Insets bottom="5.0" right="50.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="pdf" alignment="CENTER_RIGHT" onAction="#PDFkiiro" text="PDF-be">
+                    <HBox.margin>
+                        <Insets bottom="5.0" right="10.0" top="5.0" />
                     </HBox.margin>
                 </Button>
             </children>

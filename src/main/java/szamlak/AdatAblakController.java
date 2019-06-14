@@ -21,15 +21,8 @@ public class AdatAblakController {
 
     private int valasztottEv;
     private int valasztottHonap;
-//    private double doubleAktualisGaz = utolso.getAktualisGazOraallas();
     private double doubleAktualisGaz = 0;
-//    private double doubleAktualisVillany = utolso.getAktualisVillanyOraallas();
     private double doubleAktualisVillany = 0;
-//    private double doubleGazEgysegar = utolso.getEgysegarGaz();
-//    private double doubleVillanyegysegar = utolso.getEgysegarVillany();
-//    private int intGazAlapdij = utolso.getGazAlapdij();
-//    private int intKozosKoltseg = utolso.getKozosKoltseg();
-//    private int intLakber = utolso.getLakber();
     private double csereGaz = 0.0;
     private double csereVillany = 0.0;
 
@@ -74,12 +67,21 @@ public class AdatAblakController {
         if (beolvasott.getGazEgysegar() == null) {
             elsoBeolvasottFeltoltes();
         }
-        System.out.println("initialize accomplished");
         Oraallas utolso = AdatKezelo.getInstance().getRezsiAdatok().get(utolsoElemSzam());
         evValaszto.getSelectionModel().select(String.valueOf(utolso.getEv())); //Ez es a kovetkezo beallitja, hogy az ev es a honap automatikusan a legutobbi utan alljon be
-        honapValaszto.getSelectionModel().select(utolso.getHonap());
-        valasztottEv = utolso.getEv(); //itt beallitjuk, hogy a kivalasztott ev es honap valoban az legyen, mint ami megjelenik a legordulo menuben
-        valasztottHonap = utolso.getHonap()+1; //valamiert itt hozza kell adni egyet, hogy helyes legyen
+        if ( utolso.getHonap()<12) {
+            evValaszto.getSelectionModel().select(String.valueOf(utolso.getEv()));
+            valasztottEv = utolso.getEv();
+            honapValaszto.getSelectionModel().select(utolso.getHonap());
+            valasztottHonap = utolso.getHonap()+1;
+        }else {
+            evValaszto.getSelectionModel().select(String.valueOf(utolso.getEv()+1));
+            valasztottEv = utolso.getEv()+1;
+            honapValaszto.getSelectionModel().select(utolso.getHonap()-12);
+            valasztottHonap = utolso.getHonap()-11;
+        }
+//        valasztottEv = utolso.getEv(); //itt beallitjuk, hogy a kivalasztott ev es honap valoban az legyen, mint ami megjelenik a legordulo menuben
+//        valasztottHonap = utolso.getHonap()+1; //valamiert itt hozza kell adni egyet, hogy helyes legyen
         gazEgysegar.setText(beolvasott.getGazEgysegar());
         villanyEgysegar.setText(beolvasott.getVillanyEgysegar());
         gazAlapDij.setText(beolvasott.getGazAlapDij());
@@ -220,7 +222,6 @@ public class AdatAblakController {
         if (isParsable(beolvasott.getAktualisGaz()) && isParsable(beolvasott.getGazEgysegar()) && isParsable(beolvasott.getGazAlapDij())
             && isParsable(beolvasott.getAktualisVillany()) && isParsable(beolvasott.getVillanyEgysegar()) &&
                 isParsable(beolvasott.getKozosKoltseg()) && isParsable(beolvasott.getLakber())) {
-            System.out.println("false");
             return false;
         } else return true;
     }
@@ -249,7 +250,6 @@ public class AdatAblakController {
         beolvasott.setLakber(lakber.getText());
 
     }
-
     public Oraallas getOraallas() {
         return utolso;
     }

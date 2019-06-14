@@ -27,9 +27,9 @@ public class AdatKezelo {
 
     public void betoltSzamlak() {
         Gson gson = new GsonBuilder().create();
-        Type carListType = new TypeToken<ArrayList<Oraallas>>(){}.getType();
+        Type rezsiType = new TypeToken<ArrayList<Oraallas>>(){}.getType();
         try (JsonReader reader = new JsonReader(new FileReader(filenev))) {
-            rezsiAdatok = gson.fromJson(reader, carListType);
+            rezsiAdatok = gson.fromJson(reader, rezsiType);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -64,14 +64,17 @@ public class AdatKezelo {
 
     public int berletSzamito(Oraallas elem) {
         int alberlet = 0;
+        int kulon = 0;
         int kulonbseg = kulonbsegSzamito(elem);
         if (kulonbseg >= 0) {
-            for (int i = 0; i < kulonbseg; i++) {
-                if (elem.getHonap() == 7 || elem.getHonap() == 8) {
-                    alberlet = 0;
+            kulon = kulonbseg;}
+        else kulon = kulonbseg + 12;
+        for (int i = kulon-1; i >= 0; i--) {
+            int aktualisHo = elem.getHonap()-i;
+                if ( aktualisHo == 7 || aktualisHo == 8) {
+                    alberlet += 0;
                 } else alberlet = alberlet + elem.getLakber();
             }
-        }else alberlet = (kulonbseg + 12) * elem.getLakber();
         return alberlet;
     }
 
@@ -79,11 +82,35 @@ public class AdatKezelo {
         if (elemsorszam(elem) == 0) {
             return 2; //1 lenne, de az elso szamla pont 2 honapos (januar es februar egyutt)
         }
-        int kulonbseg = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+        int kulonbseg = helyesKulonbseg(elem);
         return kulonbseg;
+    }
+
+    public int alberletKulonbsegSzamito(Oraallas elem) {
+        int honapSzam = 0;
+        int masEvKiegeszito = 0;
+        int kulonbseg = kulonbsegSzamito(elem);
+        if (elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap() < 0) {
+            masEvKiegeszito = 12;
+        }
+        for (int i = kulonbseg-1; i >= 0; i--) {
+            int aktualisHo = elem.getHonap()-i + masEvKiegeszito;
+            if ( aktualisHo == 7 || aktualisHo == 8) {
+                honapSzam += 0;
+            } else honapSzam++;
+        }
+        return honapSzam;
+
     }
 
     private int elemsorszam(Oraallas elem) {
         return rezsiAdatok.indexOf(elem);
+    }
+
+    private int helyesKulonbseg(Oraallas elem) {
+        int kul = elem.getHonap() - rezsiAdatok.get(elemsorszam(elem) - 1).getHonap();
+        if (kul >= 0) {
+            return kul;
+        } else return kul + 12;
     }
 }
