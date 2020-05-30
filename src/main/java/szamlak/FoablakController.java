@@ -94,7 +94,10 @@ public class FoablakController {
         }
         contentStream.endText();
         contentStream.close();
-        String mentes = "D:/Komlossy62_" + elem.getEv() + "_" + elem.getHonap() + ".pdf";
+        String homeDir = System.getProperty("user.home"); //az adott felhasznalo konytvtara
+        String mentes = homeDir + "/Downloads/Komlossy62_" + elem.getEv() + "_" + elem.getHonap() + ".pdf";
+//        String mentes = "D:/Komlossy62_" + elem.getEv() + "_" + elem.getHonap() + ".pdf";
+        System.out.println("A pdf-et letöltöttem a " + homeDir + "\\Letöltések könyvtárba");
         document.save(new File(mentes));
         document.close();
     }
