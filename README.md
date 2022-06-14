@@ -1,2 +1,2 @@
-# szamlak_kesz
-Rezsi szamlak kezelese
+# invoices_ready
+Managing utility bills
